@@ -1,0 +1,24 @@
+<html>
+	<head>
+	<title>
+		Desapegos		
+	</title>
+	</head>
+	<body>
+		{% for desapego in desapegos %}
+			Desapegador: {{ desapego.desapegador.name }}
+			<br/>
+			Alvo: {{ desapego.alvo.name }}
+			<br/>
+			Sexo: {{ desapego.alvo.gender }}
+			<br/>
+			Hashtags: </br>
+			<ul>
+			{% for hashtag in desapego.obj.hashtags.all %}
+			<li>{{ hashtag.nome }}</li>
+			{% endfor %}
+			</ul>
+			<br/>
+		{% endfor %}
+	</body>
+</html>
