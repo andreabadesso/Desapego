@@ -79,10 +79,12 @@ def guardar_amigos(request):
 
     try: 
         usuario = Usuario.objects.get(fbId=uid)
+        if not usuario.cadastrado:
+            usuario.baixarInformacoes()
     except Usuario.DoesNotExist:
-        pass
-    else:
-        salvar_amigos.delay(usuario, lista_amigos)
+        usuario = Usuario(fbId=uid)
+        usuario.baixarInformacoes()
+    salvar_amigos.delay(usuario, lista_amigos)
     
     return HttpResponse("0")
         
