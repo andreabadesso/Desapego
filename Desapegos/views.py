@@ -65,12 +65,12 @@ def meusDesapegos(request):
         try:
             usuario = Usuario.objects.get(fbId=uid)
         except Usuario.DoesNotExist:
-            return HttpResponse("Usuario nao existe")
-        else:
-            desapegos = Desapego.objects.filter(usuario=usuario)
-            serializer = DesapegoSerializer(desapegos, many=True)
-            return JSONResponse(serializer.data)
-            #return render(request, "desapegos_usuario.html", {"desapegos": desapegos})
+            usuario = Usuario(fbId=uid)
+            usuario.baixarInformacoes()
+
+        desapegos = Desapego.objects.filter(usuario=usuario)
+        serializer = DesapegoSerializer(desapegos, many=True)
+        return JSONResponse(serializer.data)
 
 @csrf_exempt
 def guardar_amigos(request):
