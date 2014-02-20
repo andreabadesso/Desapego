@@ -124,6 +124,8 @@ def desapegar(request):
 	
 	try:
 		alvo = Usuario.objects.get(fbId=alvoId)
+                if not alvo.cadastrado:
+                    alvo.baixarInformacoes()
 	except Usuario.DoesNotExist:
 		alvo = Usuario(fbId=alvoId)
 		alvo.baixarInformacoes()
