@@ -12,10 +12,16 @@ class Usuario(models.Model):
 	sobrenome = models.CharField(max_length=150, blank=True, null=True)
 	nome_completo = models.CharField(max_length=150, blank=True, null=True)
 	sexo = models.CharField(max_length=150, blank=True, null=True)
-	amiguinhos = models.ManyToManyField(Amigo, related_name="amiguinho")
+	amigos = models.ManyToManyField("Usuario", blank=True, null=True)
+	cadastrado = models.BooleanField(default=False)
+	#amiguinhos = models.ManyToManyField(Amigo, related_name="amiguinho")
 
 	def __unicode__(self):
-		return self.nome_completo
+		if self.cadastrado:
+			return self.nome_completo
+		else:
+			return self.fbId
+
 
 	def baixarInformacoes(self):
 		informacoes = loads(urlopen('http://graph.facebook.com/' + self.fbId).read())
@@ -30,6 +36,7 @@ class Usuario(models.Model):
 		self.nome = informacoes["first_name"]
 		self.sobrenome = informacoes["last_name"]
 		self.sexo = "Masculino" if (informacoes["gender"] == "male") else "Feminino"
+		self.cadastrado = True
 		self.save()
 
 	def emJSON(self):

@@ -10,10 +10,8 @@ from django.views.decorators.csrf import csrf_exempt
 from Desapegos.serializers import DesapegoSerializer
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-from django.views.decorators.csrf import csrf_exempt
 from Amigos.models import Amigo
-from Usuarios import tasks
-
+from Desapegos.tasks import salvar_amigos
 import json
 
 class JSONResponse(HttpResponse):
@@ -75,16 +73,40 @@ def meusDesapegos(request):
             #return render(request, "desapegos_usuario.html", {"desapegos": desapegos})
 
 @csrf_exempt
+def guardar_amigos(request):
+    uid = request.POST.get('uid', None)
+    lista_amigos = json.loads(request.POST.get("lista_amigos"))
+
+    try: 
+        usuario = Usuario.objects.get(fbId=uid)
+    except Usuario.DoesNotExist:
+        pass
+    else:
+        salvar_amigos.delay(usuario, lista_amigos)
+    
+    return HttpResponse("0")
+        
+@csrf_exempt
 def desapegos_amigos(request):
-        uid = request.POST.get('uid', None)
-        print "FODASE: " + str(uid)
+        uid = request.GET.get('uid')
+        desapegos = []
 
         try:
-            amiguinhos = Amigo.objects.filter(amigo_rel=uid) 
-        except Amigo.DoesNotExist:
-            return HttpResponse("0")
+            usuario = Usuario.objects.get(fbId=uid)
+            print "Usuario existe, " + usuario.nome_completo
+        except Usuario.DoesNotExist:
+            print "Usuario nao existe"
         else:
-            return HttpResponse("tamanho: " + str(amiguinhos.count()))
+            amigos = usuario.amigos.filter(cadastrado=True)
+            for amigo in amigos:
+                if amigo.desapegos.count() > 0:
+                    for desapego in amigo.desapegos.all():
+                        desapegos.append(desapego)
+
+
+        serializer = DesapegoSerializer(desapegos, many=True)
+        return JSONResponse(serializer.data)
+            
 
 @csrf_exempt
 def desapegar(request):
@@ -104,13 +126,6 @@ def desapegar(request):
 		alvo = Usuario(fbId=alvoId)
 		alvo.baixarInformacoes()
 
-        for amigoID in objDesapego["amigos"]:
-                amigo = Amigo(uid=amigoID, amigo_rel=desapegador)
-                amigo.save()
-                usuario.amiguinhos.add(amigo)
-
-        usuario.save()
-        
 	hashtags = []
 
 	desapego = Desapego(usuario=usuario, alvo=alvo, \

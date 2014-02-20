@@ -2,6 +2,7 @@ from django.db import models
 from Hashtags.models import Hashtag
 from Status.models import Status
 from Usuarios.models import Usuario
+from Comentarios.models import Comentario
 from django.core import serializers
 
 class Desapego(models.Model):
@@ -12,6 +13,7 @@ class Desapego(models.Model):
 	status = models.ForeignKey(Status, null=True, blank=True)
 	latitude = models.CharField(max_length=150, default="-", null=True)
 	longitude = models.CharField(max_length=150, default="-", null=True)
+	comentarios = models.ManyToManyField(Comentario, null=True, related_name="desapego")
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 

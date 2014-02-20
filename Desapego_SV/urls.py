@@ -12,6 +12,9 @@ urlpatterns = patterns('',
     url(r'^desapegar', "Desapegos.views.desapegar"),
     url(r'^meus_desapegos/$', "Desapegos.views.meusDesapegos"),
     url(r'^desapegos_amigos/$', "Desapegos.views.desapegos_amigos"),
+    url(r'^salvar_amigos/$', "Desapegos.views.guardar_amigos"),
+    url(r'^pegar_comentarios/$', "Comentarios.views.todos_comentarios"),
+    url(r'^comentar/$', "Comentarios.views.comentar"),
     url(r'^', include('Hashtags.urls')),
 
 )

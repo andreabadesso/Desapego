@@ -36,13 +36,19 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'south',
-    'Desapegos',
+    'Usuarios',
     'Hashtags',
     'Status',
-    'Usuarios',
+    'Desapegos',
+    'Comentarios',
     'rest_framework', 
     'Amigos',
+    'djcelery',
 )
+
+#BROKER_URL = 'django://'
+
+CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend',
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, "templates/"),
