@@ -11,9 +11,13 @@ class DesapegoSerializer(serializers.ModelSerializer):
 
 	hashtags = serializers.SlugRelatedField(many=True, read_only=True,
 						  slug_field='nome')
+
+	comentarios = serializers.SlugRelatedField(many=True, read_only=True,
+						  slug_field='comentario')
+
 	alvoid = serializers.Field()
 	usuarioid = serializers.Field()
 
 	class Meta:
 		model=Desapego
-		fields = ("id", "alvoid", "usuarioid", "usuario", "alvo", "hashtags", "latitude", "longitude", "created_at", "updated_at")
+		fields = ("id", "alvoid", "comentarios", "usuarioid", "usuario", "alvo", "hashtags", "latitude", "longitude", "created_at", "updated_at")

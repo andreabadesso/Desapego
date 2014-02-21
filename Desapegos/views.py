@@ -138,8 +138,11 @@ def desapegar(request):
 
 	for hashtag in objDesapego["hashtags"]:
 		desapego.hashtags.add(Hashtag.objects.get(pk=hashtag))
-	
-	desapego.status = Status.objects.get(pk=1)
+
+	try:
+		desapego.status = Status.objects.get(id=objDesapego["status"])
+	except Status.DoesNotExist:
+		desapego.status = Status.objects.get(pk=1)
 
 	desapego.save()
 
