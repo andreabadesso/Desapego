@@ -33,3 +33,6 @@ class Desapego(models.Model):
 	def emJSON(self):
 		data = serializers.serialize('json', [ self, ])
 		return data
+
+	class Meta:
+		ordering = ('created_at',)

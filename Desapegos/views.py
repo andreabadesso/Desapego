@@ -95,9 +95,8 @@ def desapegos_amigos(request):
 
         try:
             usuario = Usuario.objects.get(fbId=uid)
-            print "Usuario existe, " + usuario.nome_completo
         except Usuario.DoesNotExist:
-            print "Usuario nao existe"
+	    pass
         else:
             amigos = usuario.amigos.filter(cadastrado=True)
             for amigo in amigos:
