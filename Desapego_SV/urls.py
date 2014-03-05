@@ -17,5 +17,6 @@ urlpatterns = patterns('',
     url(r'^comentar/$', "Comentarios.views.comentar"),
     url(r'^', include('Hashtags.urls')),
     url(r'lista_status/$', "Status.views.todos"),
+    url(r'^usuarios/$', "Usuarios.views.usuario"),
 
 )

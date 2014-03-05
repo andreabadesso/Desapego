@@ -14,14 +14,12 @@ class Usuario(models.Model):
 	sexo = models.CharField(max_length=150, blank=True, null=True)
 	amigos = models.ManyToManyField("Usuario", blank=True, null=True)
 	cadastrado = models.BooleanField(default=False)
-	#amiguinhos = models.ManyToManyField(Amigo, related_name="amiguinho")
 
 	def __unicode__(self):
 		if self.cadastrado:
 			return self.nome_completo
 		else:
 			return self.fbId
-
 
 	def baixarInformacoes(self):
 		informacoes = loads(urlopen('http://graph.facebook.com/' + self.fbId).read())
