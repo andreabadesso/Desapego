@@ -134,6 +134,22 @@ def desapegos_amigos(request):
 
         serializer = DesapegoSerializer(desapegos, many=True)
         return JSONResponse(serializer.data)
+
+@csrf_exempt
+def desapegos_de(request):
+        uid = request.GET.get('uid')
+        desapegos = []
+
+        try:
+		usuario = Usuario.objects.get(fbId=uid)
+        except Usuario.DoesNotExist:
+		pass
+        else:
+		desapegos = Desapego.objects.filter(usuario=usuario)
+
+
+        serializer = DesapegoSerializer(desapegos, many=True)
+        return JSONResponse(serializer.data)
             
 
 @csrf_exempt

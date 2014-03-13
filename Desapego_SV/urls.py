@@ -20,5 +20,5 @@ urlpatterns = patterns('',
     url(r'^usuarios/$', "Usuarios.views.usuario"),
     url(r'^curtirDesapego/$', "Desapegos.views.curtirDesapego"),
     url(r'^verificarCurtida/$', "Desapegos.views.verificarCurtida"),
-
+    url(r'^desapegos_de/$', "Desapegos.views.desapegos_de"),
 )
