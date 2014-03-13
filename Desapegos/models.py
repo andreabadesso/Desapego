@@ -14,6 +14,7 @@ class Desapego(models.Model):
 	latitude = models.CharField(max_length=150, default="-", null=True)
 	longitude = models.CharField(max_length=150, default="-", null=True)
 	comentarios = models.ManyToManyField(Comentario, null=True, related_name="desapego")
+	curtidas = models.ManyToManyField(Usuario, null=True, blank=True, related_name="curtiu")
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
