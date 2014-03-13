@@ -18,5 +18,7 @@ urlpatterns = patterns('',
     url(r'^', include('Hashtags.urls')),
     url(r'lista_status/$', "Status.views.todos"),
     url(r'^usuarios/$', "Usuarios.views.usuario"),
+    url(r'^curtirDesapego/$', "Desapegos.views.curtirDesapego"),
+    url(r'^verificarCurtida/$', "Desapegos.views.verificarCurtida"),
 
 )

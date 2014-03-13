@@ -38,6 +38,33 @@ def lista_hashtags(request):
             return JSONResponse(serializer.data, status=201)
         return JSONResponse(serializer.errors, status=400)
 
+def curtirDesapego(request):
+	if request.method == "GET":
+		try:
+			usuario = Usuario.objects.get(fbId=request.GET.get("fbid"))
+			desapego = Desapego.objects.get(pk=request.GET.get("id"))
+			desapego.curtidas.add(usuario)
+		except Usuario.DoesNotExist:
+			return HttpResponse("Usuario nao existe")
+		except Desapego.DoesNotExist:
+			return HttpResponse("Desapego nao existe")
+
+		return HttpResponse("true")
+
+def verificarCurtida(request):
+	if request.method == "GET":
+		try:
+			print request.GET.get("fbid")
+			usuario = Usuario.objects.get(fbId=request.GET.get("fbid"))
+			desapego = Desapego.objects.get(pk=request.GET.get("id"))
+			if desapego.curtidas.get(pk=usuario.pk):
+				return HttpResponse("true")
+
+		except Usuario.DoesNotExist:
+			return HttpResponse("Usuario nao existe")
+		except Desapego.DoesNotExist:
+			return HttpResponse("Desapego nao existe")
+
 def index(request):
 	desapegos = Desapego.objects.all()
         serializer = DesapegoSerializer(desapegos, many=True)
