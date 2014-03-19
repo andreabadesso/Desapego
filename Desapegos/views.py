@@ -70,24 +70,21 @@ def index(request):
         serializer = DesapegoSerializer(desapegos, many=True)
         return JSONResponse(serializer.data)
 
-def verDesapego(request):
-	desapegoId = request.GET.get("id")
-
+def verDesapego(request, id):
 	try:
-		desapego = Desapego.objects.get(pk=desapegoId)
+		desapego = Desapego.objects.get(pk=id)
 	except Desapego.DoesNotExist:
-		return render(request, "desapego_nao_existe.html")
+		return HttpResponse("-1")
 	else:
                 serializer = DesapegoSerializer(desapego, many=False)
                 return JSONResponse(serializer.data)
-		#return render(request, "desapego.html", {"desapego": desapego})
 
 @csrf_exempt
 def meusDesapegos(request):
         uid = request.GET.get('uid', None)
 
         if uid == None:
-            return HttpResponse("Uid faltando")
+            return HttpResponse("-1")
 
         try:
             usuario = Usuario.objects.get(fbId=uid)
@@ -113,11 +110,11 @@ def guardar_amigos(request):
         usuario.baixarInformacoes()
     salvar_amigos.delay(usuario, lista_amigos)
     
-    return HttpResponse("0")
+    return HttpResponse("")
         
 @csrf_exempt
-def desapegos_amigos(request):
-        uid = request.GET.get('uid')
+def desapegos_amigos(request, uid):
+        #uid = request.GET.get('uid')
         desapegos = []
 
         try:
@@ -136,8 +133,9 @@ def desapegos_amigos(request):
         return JSONResponse(serializer.data)
 
 @csrf_exempt
-def desapegos_de(request):
-        uid = request.GET.get('uid')
+def desapegos_de(request, uid):
+        #uid = request.GET.get('uid')
+
         desapegos = []
 
         try:

@@ -1,24 +1,21 @@
 from django.conf.urls import patterns, include, url
-
 from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^desapegos/', "Desapegos.views.index"),
-    url(r'^usuario/$', "Usuarios.views.verUsuario"),
-    url(r'^desapego/$', "Desapegos.views.verDesapego"),
-    url(r'^desapegar', "Desapegos.views.desapegar"),
-    url(r'^meus_desapegos/$', "Desapegos.views.meusDesapegos"),
-    url(r'^desapegos_amigos/$', "Desapegos.views.desapegos_amigos"),
-    url(r'^salvar_amigos/$', "Desapegos.views.guardar_amigos"),
-    url(r'^pegar_comentarios/$', "Comentarios.views.todos_comentarios"),
-    url(r'^comentar/$', "Comentarios.views.comentar"),
-    url(r'^', include('Hashtags.urls')),
-    url(r'lista_status/$', "Status.views.todos"),
-    url(r'^usuarios/$', "Usuarios.views.usuario"),
-    url(r'^curtirDesapego/$', "Desapegos.views.curtirDesapego"),
-    url(r'^verificarCurtida/$', "Desapegos.views.verificarCurtida"),
-    url(r'^desapegos_de/$', "Desapegos.views.desapegos_de"),
+	# Admin
+	url(r'^admin/', include(admin.site.urls)),
+	# Usuarios
+	url(r'^usuarios/', include('Usuarios.urls')),
+	# Desapegos
+	url(r'^desapegos/', include("Desapegos.urls")),
+	# Comentarios
+	url(r'^comentarios/', include("Comentarios.urls")),
+	# Hashtags
+	url(r'^hashtags/', include('Hashtags.urls')),
+	# Status
+	url(r'^status/', include('Status.urls')),
+	# Curtir
+	url(r'^curtirDesapego/$', "Desapegos.views.curtirDesapego"),
+	url(r'^verificarCurtida/$', "Desapegos.views.verificarCurtida"),
 )

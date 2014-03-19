@@ -31,24 +31,22 @@ def todos_comentarios(request):
         return JSONResponse(serializer.data)
 
 @csrf_exempt
-def comentar(request):
+def comentar(request, id, fbid):
 	try:
-		desapego = Desapego.objects.get(pk=request.GET.get("id"))
+                desapego = Desapego.objects.get(pk=id)
 	except Desapego.DoesNotExist:
 		return HttpResponse("-1")
-
-
 	try: 
-		usuario = Usuario.objects.get(fbId=request.GET.get("fbid"))
+                usuario = Usuario.objects.get(fbId=fbid)
 	except Usuario.DoesNotExist:
 		return HttpResponse("-1")
 
-	c = request.GET.get("comentario")
+	comentario = request.GET.get("comentario")
+	c = Comentario(usuario=usuario, comentario=comentario)
+	c.save()
 
-	comentario = Comentario(usuario=usuario, comentario=c)
-	comentario.save()
-
-	desapego.comentarios.add(comentario)
+	desapego.comentarios.add(c)
 	desapego.save()
 
-	return HttpResponse(comentario.comentario)
+        serializer = ComentarioSerializer(c, many=False)
+        return JSONResponse(serializer.data)

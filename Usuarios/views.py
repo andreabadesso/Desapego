@@ -12,8 +12,8 @@ class JSONResponse(HttpResponse):
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
 
-def verUsuario(request):
-    fbid = request.GET.get("fbid")
+def verUsuario(request,fbid):
+    #fbid = request.GET.get("fbid")
     try:
         usuario = Usuario.objects.get(fbId=fbid)
     except Usuario.DoesNotExist:

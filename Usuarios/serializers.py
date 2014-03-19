@@ -10,4 +10,5 @@ class UsuarioSerializer(serializers.ModelSerializer):
 	class Meta:
 		model=Usuario
 		depth = 2
-		fields = ("fbId", "link", "username", "nome", "sobrenome", "nome_completo", "sexo", "amigos", "cadastrado", "desapegos")
+		fields = ("fbId", "link", "username", "nome", "sobrenome", "nome_completo", "sexo", "amigos", 
+				"cadastrado", "desapegos")
