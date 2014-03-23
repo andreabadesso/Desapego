@@ -19,4 +19,6 @@ urlpatterns = patterns('',
 	# Curtir
 	url(r'^curtirDesapego/$', "Desapegos.views.curtirDesapego"),
 	url(r'^verificarCurtida/$', "Desapegos.views.verificarCurtida"),
+	# Ver usuario (WEB)
+	url(r'(?P<id>\d+)/$', "Site.views.desapego"),
 )
