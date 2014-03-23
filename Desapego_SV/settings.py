@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'rest_framework', 
     'Amigos',
     'djcelery',
+    'Site',
 )
 
 #BROKER_URL = 'django://'

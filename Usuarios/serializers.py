@@ -4,9 +4,9 @@ from Usuarios.models import Usuario
 from Desapegos.serializers import DesapegoSerializer
 
 class UsuarioSerializer(serializers.ModelSerializer):
-#	desapegos = serializers.SlugRelatedField(many=True, read_only=True,
-#						  slug_field='id')
-	desapegos = DesapegoSerializer 
+	desapegos = serializers.SlugRelatedField(many=True, read_only=True,
+						  slug_field='id')
+#	desapegos = DesapegoSerializer 
 	class Meta:
 		model=Usuario
 		depth = 2
