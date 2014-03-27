@@ -28,6 +28,13 @@ class Desapego(models.Model):
 
 	usuarioid = property(pegarUsuarioId)
 
+	def hashtagsToString(self):
+		h = []
+		for hashtag in self.hashtags.all():
+			h.append(hashtag.nome)
+
+		return ", ".join(h)
+
 	def __unicode__(self):
 		return "" + self.usuario.nome + " desapegou de " + self.alvo.nome
 
