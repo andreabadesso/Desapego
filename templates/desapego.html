@@ -10,10 +10,64 @@
         <meta property="hashtags" content="Vou desapegar porque: {{ desapego.hashtagsToString }}" />
 
         <link type="text/css" rel="stylesheet" href="/stylesheets/app.css" />
+        <style>
+            body {
+                background: url("https://s3-sa-east-1.amazonaws.com/data-desapego/img/bg-desapego.png");
+                background-repeat:no-repeat;
+                background-attachment:fixed;
+                background-position:center; 
+                background-size:cover;
+                margin: 0;
+            }
+
+            .header {
+                height: 80px;
+                width: 100%;
+                overflow: hidden;
+                position: relative;
+                float: left;
+                margin: 0;
+                background-color: white;
+            }
+
+            .footer {
+                position:absolute;
+                height:285px;
+                background-color: rgb(44, 62, 80);
+                bottom:0px;
+                left:0px;
+                right:0px;
+                margin-bottom:0px;
+            }
+
+            .conteudo {
+                height: 800px;
+            }
+        </style>
     </head>
     <body>
-        <div id="wrapper">
-        </div>
+        <div class="header">
+            <div class="wrapperNomeData">
+                <p class="nomeDesapegador">{{ desapegador.nome_completo }}</p>
+                <p class="dataDesapego">{{ desapego.created_at }}</p>
+            </div>
+            <img class="imagemDesapegador" src="http://graph.facebook.com/{{ desapegado.fbId }}/picture" alt="">
+        </div> 
+
+        <div class="conteudo"></div>
+
+    <section class="footer cta-block dark-blue-block">
+      <div class="row text-center fly-in-animation">
+        <div class="columns large-12 small-12">
+          <p>
+      <h2>baixe o desapego agora mesmo!</h2>
+          <p>escolha sua plataforma:</p>
+          </p> 
+        </div><a data-reveal-id="dialog-baixar" data-reveal="" class="button green-button">fazer download</a>
+
+  <p>feito com amor e carinho por <a href="https://s3-sa-east-1.amazonaws.com/data-desapego/http://www.lab21k.com.br/">lab21k</a></p>
+      </div>
+    </section>
     </body>
 </html>
 
