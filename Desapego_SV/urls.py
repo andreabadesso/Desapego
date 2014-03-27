@@ -21,4 +21,5 @@ urlpatterns = patterns('',
 	url(r'^verificarCurtida/$', "Desapegos.views.verificarCurtida"),
 	# Ver usuario (WEB)
 	url(r'(?P<id>\d+)/$', "Site.views.desapego"),
+	url(r'^politica_de_privacidade', "Desapegos.views.policy"),
 )

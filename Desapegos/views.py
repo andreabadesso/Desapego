@@ -188,3 +188,5 @@ def desapegar(request):
 
 	return HttpResponse(desapego.pk)
 
+def policy(request):
+    return render(request, "politica.html")
