@@ -4,7 +4,7 @@
 
         <meta property="og:title" content="{{ desapegado.nome_completo }}" />
         <meta property="og:type" content="appdesapego:pessoa"/>
-        <meta property="og:image" content="http://graph.facebook.com/{{ desapegado.fbId }}/picture?type=large" />
+        <meta property="og:image" content="http://graph.facebook.com/{{ desapegado.fbId }}/picture?width=800&height=800" />
         <meta property="og:description" content="Vou desapegar porque: {{ desapego.hashtagsToString }}"/>
         <meta property="og:site_name" content="Desapego"/>
         <meta property="hashtags" content="Vou desapegar porque: {{ desapego.hashtagsToString }}" />
@@ -18,56 +18,183 @@
                 background-position:center; 
                 background-size:cover;
                 margin: 0;
+                width: 100%;
+                overflow-x: hidden;
             }
 
             .header {
-                height: 80px;
-                width: 100%;
+                height: 50px;
                 overflow: hidden;
                 position: relative;
-                float: left;
+                padding: 5px;
                 margin: 0;
                 background-color: white;
+                box-shadow: 0px 5px 10px 0px rgba(119, 119, 119, 0.4);
+                -moz-box-shadow: 0px 5px 10px 0px rgba(119, 119, 119, 0.4);
+                -webkit-box-shadow: 0px 5px 10px 0px rgba(119, 119, 119, 0.4);
             }
 
-            .footer {
-                position:absolute;
-                height:285px;
-                background-color: rgb(44, 62, 80);
-                bottom:0px;
-                left:0px;
-                right:0px;
-                margin-bottom:0px;
+            p {
+                font-family: helvetica;
+             	margin: 0;   
+                padding: 0;
+                display: inline-block;
+                color: #666;
             }
+            
+            
+            .wrapperNomeData {
+             	width: 250px;   
+                display: inline-block;
+                margin: 0;
+                margin-left: 5px;
+                padding: 0;
+                float: left;
+            }
+            
+            .imagemDesapegador {
+             	width: auto;
+                height: auto;
+                float: left;
+            }
+            
+            .nomeDesapegador {
+               display: block;
+                font-size: 16px;
+                color: #1ed2be;
+            }	
+            .dataDesapego {
+               display: block;
+                font-size: 14px;
+            }
+            
+            .localDesapego {
+             	font-size: 14px;   
+            }
+            
+            .btnConheca {
+             	background: #ff7e79;
+                width: 170px;
+                height: 30px;
+                float: right;
+                margin-right: 5px;
+                outline: 0;
+                border : 0px;
+				margin-top: 10px;
+                font-family: helvetica;
+                font-size: 14px;
+                color: white;
+            }
+            
+            .nomeDesapegado {
+             	background: #00cbb3;
+                width: 390px;
+                height: 60px;
+                outline: 0;
+                border : 0px;
+				display: block;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 20px;
+                font-family: helvetica;
+                font-size: 20px;
+                color: white;
+            }
+            
+            .statusDesapegado {
+             	background: #ff6d6a;
+                width: 390px;
+                height: 30px;
+                outline: 0;
+                border : 0px;
+				display: block;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 10px;
+                font-family: helvetica;
+                font-size: 16px;
+                color: white;
+            }
+            
+            .informacoesDesapego {
+             	background: #ebebeb;   
+				width: 450px;
+                min-height: 650px;
+              display: block;
+              margin-left: auto;
+              margin-right: auto;
+                margin-top: 30px;
+                margin-bottom: 30px;
+-moz-background-clip: padding;
+-webkit-background-clip: padding-box;
+background-clip: padding-box; /* prevents bg color from leaking outside the border */
+-moz-box-shadow: 0 0 15px rgba(0,0,0,.75); /* drop shadow */
+-webkit-box-shadow: 0 0 15px rgba(0,0,0,.75); /* drop shadow */
+box-shadow: 0 0 15px rgba(0,0,0,.75); /* drop shadow */
+                position: relative;
 
-            .conteudo {
-                height: 800px;
+            }
+            
+            .molduraDesapegador {
+                width:            280px;
+                height:           280px;
+                margin-left:	  80px;
+                padding: 10px;
+                padding-bottom: 28px;
+                padding-right: 28px;
+                margin-top: 40px;
+                display: inline-block;
+				background-image: url("https://s3-sa-east-1.amazonaws.com/data-desapego/img/moldura_foto.png");
+                background-position:center; 
+                background-size:cover;
+            }
+            
+            .fotoDesapegado {
+             	width: 100%;
+                height: 100%;
+            }
+            
+            .vouDesapegarPq {
+             	margin-left: 20px;
+                margin-top: 20px;
+				font-size: 18px;
+            }
+            
+            .containerHashtags {
+                margin-top: 10px;
+             	margin-left: 20px;   
             }
         </style>
     </head>
     <body>
         <div class="header">
+            <img class="imagemDesapegador" src="http://graph.facebook.com/{{desapegador.fbId}}/picture" alt="">
             <div class="wrapperNomeData">
                 <p class="nomeDesapegador">{{ desapegador.nome_completo }}</p>
                 <p class="dataDesapego">{{ desapego.created_at }}</p>
+                <p class="localDesapego">Rio de Janeiro</p>
             </div>
-            <img class="imagemDesapegador" src="http://graph.facebook.com/{{ desapegado.fbId }}/picture" alt="">
+			<input type="button" class="btnConheca" onClick="window.location.replace('http://www.desapegoapp.com.br');" value="CONHEÇA O APP"/>
         </div> 
 
-        <div class="conteudo"></div>
+        <div class="conteudo">
+        	<div class="informacoesDesapego">
+            	<div class="molduraDesapegador">
+                	<img class="fotoDesapegado" src="http://graph.facebook.com/{{ desapegado.fbId }}/picture?width=280&height=280 " />
+                </div>
+                <input type="button" class="nomeDesapegado" value="{{ desapegado.nome_completo }}"/>
+                <input type="button" class="statusDesapegado" value="Status: {{ desapego.status }}"/>
+                
+                <p class="vouDesapegarPq">VOU DESAPEGAR PORQUE:</p>
+                
+                <div class="containerHashtags">
+                    {% for hashtag in desapego.hashtags.all %}
+ 	                   <div class="hashtag">{{ hashtag.nome }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
 
-    <section class="footer cta-block dark-blue-block">
-      <div class="row text-center fly-in-animation">
-        <div class="columns large-12 small-12">
-          <p>
-      <h2>baixe o desapego agora mesmo!</h2>
-          <p>escolha sua plataforma:</p>
-          </p> 
-        </div><a data-reveal-id="dialog-baixar" data-reveal="" class="button green-button">fazer download</a>
-
-  <p>feito com amor e carinho por <a href="https://s3-sa-east-1.amazonaws.com/data-desapego/http://www.lab21k.com.br/">lab21k</a></p>
-      </div>
-    </section>
     </body>
 </html>
 
