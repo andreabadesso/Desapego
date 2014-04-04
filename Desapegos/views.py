@@ -101,7 +101,7 @@ def guardar_amigos(request):
     uid = request.POST.get('uid', None)
     lista_amigos = json.loads(request.POST.get("lista_amigos"))
 
-    try: 
+    try:
         usuario = Usuario.objects.get(fbId=uid)
         if not usuario.cadastrado:
             usuario.baixarInformacoes()
@@ -109,9 +109,9 @@ def guardar_amigos(request):
         usuario = Usuario(fbId=uid)
         usuario.baixarInformacoes()
     salvar_amigos.delay(usuario, lista_amigos)
-    
+
     return HttpResponse("")
-        
+
 @csrf_exempt
 def desapegos_amigos(request, uid):
         #uid = request.GET.get('uid')
@@ -139,16 +139,15 @@ def desapegos_de(request, uid):
         desapegos = []
 
         try:
-		usuario = Usuario.objects.get(fbId=uid)
+          usuario = Usuario.objects.get(fbId=uid)
         except Usuario.DoesNotExist:
-		pass
+      		pass
         else:
-		desapegos = Desapego.objects.filter(usuario=usuario)
-
+      		desapegos = Desapego.objects.filter(usuario=usuario)
 
         serializer = DesapegoSerializer(desapegos, many=True)
         return JSONResponse(serializer.data)
-            
+
 
 @csrf_exempt
 def desapegar(request):
@@ -161,7 +160,7 @@ def desapegar(request):
 	except Usuario.DoesNotExist:
 		usuario = Usuario(fbId=desapegador)
 		usuario.baixarInformacoes()
-	
+
 	try:
 		alvo = Usuario.objects.get(fbId=alvoId)
                 if not alvo.cadastrado:
