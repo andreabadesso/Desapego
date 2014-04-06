@@ -1,16 +1,36 @@
-from django.shortcuts import render
-from Hashtags.models import Hashtag
+from Hashtags.models import Hashtag, Sugestao
+from Usuarios.models import Usuario
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from Hashtags.serializers import HashtagSerializer
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 
+
 class JSONResponse(HttpResponse):
     def __init__(self, data, **kwargs):
         content = JSONRenderer().render(data)
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
+
+
+@csrf_exempt
+def sugerir_hashtag(request):
+    if request.method == "POST":
+        hashtag = request.POST.get("hashtag")
+        usuario = request.POST.get("fbid")
+        try:
+            user = Usuario.objects.get(fbId=usuario)
+        except Usuario.DoesNotExist:
+            sugestao = Sugestao(nome=hashtag, fbid=usuario)
+        else:
+            sugestao = Sugestao(usuario=user, nome=hashtag, fbid=usuario)
+
+        sugestao.save()
+        return HttpResponse("0")
+    else:
+        return HttpResponse("-1")
+
 
 @csrf_exempt
 def lista_hashtags(request):
@@ -29,4 +49,3 @@ def lista_hashtags(request):
             serializer.save()
             return JSONResponse(serializer.data, status=201)
         return JSONResponse(serializer.errors, status=400)
-
