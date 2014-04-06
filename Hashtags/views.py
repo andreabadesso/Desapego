@@ -22,9 +22,9 @@ def sugerir_hashtag(request):
         try:
             user = Usuario.objects.get(fbId=usuario)
         except Usuario.DoesNotExist:
-            sugestao = Sugestao(nome=hashtag, fbid=usuario)
+            sugestao = Sugestao(nome=hashtag, fbId=usuario)
         else:
-            sugestao = Sugestao(usuario=user, nome=hashtag, fbid=usuario)
+            sugestao = Sugestao(usuario=user, nome=hashtag, fbId=usuario)
 
         sugestao.save()
         return HttpResponse("0")
