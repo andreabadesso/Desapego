@@ -1,5 +1,5 @@
 from django.contrib import admin
-from Hashtags.models import Hashtag, Sugestao
+from Hashtags.models import Hashtag, Sugestao, SugestaoUsuario
 
 
 class HashtagAdmin(admin.ModelAdmin):
@@ -7,3 +7,4 @@ class HashtagAdmin(admin.ModelAdmin):
 
 admin.site.register(Hashtag, HashtagAdmin)
 admin.site.register(Sugestao)
+admin.site.register(SugestaoUsuario)

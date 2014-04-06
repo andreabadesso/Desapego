@@ -1,4 +1,4 @@
-from Hashtags.models import Hashtag, Sugestao
+from Hashtags.models import Hashtag, Sugestao, SugestaoUsuario
 from Usuarios.models import Usuario
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -27,6 +27,25 @@ def sugerir_hashtag(request):
             sugestao = Sugestao(usuario=user, nome=hashtag, fbId=usuario)
 
         sugestao.save()
+        return HttpResponse("0")
+    else:
+        return HttpResponse("-1")
+
+
+@csrf_exempt
+def sugestao_usuario(request):
+    if request.method == "POST":
+        sugestao = request.POST.get("sugestao")
+        usuario = request.POST.get("fbid")
+        try:
+            user = Usuario.objects.get(fbId=usuario)
+        except Usuario.DoesNotExist:
+            sgst = SugestaoUsuario(texto=sugestao, fbId=usuario)
+        else:
+            sgst = SugestaoUsuario(usuario=user, texto=sugestao, fbId=usuario)
+
+        sgst.save()
+
         return HttpResponse("0")
     else:
         return HttpResponse("-1")

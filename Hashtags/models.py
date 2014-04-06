@@ -16,3 +16,9 @@ class Sugestao(models.Model):
     nome = models.CharField(max_length=150)
     usuario = models.ForeignKey(Usuario, null=True, blank=True)
     fbId = models.CharField(max_length=150)
+
+
+class SugestaoUsuario(models.Model):
+    texto = models.TextField()
+    usuario = models.ForeignKey(Usuario, null=True, blank=True)
+    fbId = models.CharField(max_length=150)
